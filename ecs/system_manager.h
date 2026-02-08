@@ -8,17 +8,20 @@
 
 class SystemManager {
 public:
+    /**
+     * Register a new system
+     * @tparam S System to register
+     * @return A pointer to the register
+     */
     template<typename S>
     std::shared_ptr<S> register_system();
 
+    /**
+     * Unregisters a system
+     * @tparam S System to unregister
+     */
     template<typename S>
     void unregister_system();
-
-    template<typename S>
-    void add_entity(Entity entity);
-
-    template<typename S>
-    void remove_entity(Entity entity);
 
 private:
     std::unordered_map<const char *, std::shared_ptr<System> > name_to_system;
