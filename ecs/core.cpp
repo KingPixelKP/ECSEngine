@@ -18,6 +18,18 @@ void Core::unregister_system() {
     system_manager.unregister_system<S>();
 }
 
+template<typename S, typename C>
+void Core::add_component() {
+    assert(component_manager.is_component_registered<C>());
+    system_manager.system_bitset_set<S>(component_manager.get_component_type<C>());
+}
+
+template<typename S, typename C>
+void Core::remove_component() {
+    assert(component_manager.is_component_registered<C>());
+    system_manager.system_bitset_clear<S>(component_manager.get_component_type<C>());
+}
+
 template<typename C>
 void Core::register_component() {
     component_manager.register_component<C>();
@@ -29,34 +41,37 @@ void Core::unregister_component() {
 }
 
 template<typename C>
-std::expected<std::shared_ptr<C>,std::string> Core::add_component(const Entity entity) {
-    if (entity_manager.get_entity_bitset(entity)->test(component_manager.get_component_type<C>())) {
-        return std::unexpected<std::string>("The entity already has that component");
-    }
-    auto comp_ptr = component_manager.add_component_entity<C>(entity);
-    entity_manager.get_entity_bitset(entity)->set(component_manager.get_component_type<C>(), true);
+C & Core::add_component(const Entity entity) {
+    C &comp_ptr = component_manager.add_component_entity<C>(entity);
+    entity_manager.get_entity_bitset(entity).set(component_manager.get_component_type<C>(), true);
+    system_manager.entity_bitset_change(entity, entity_manager.get_entity_bitset(entity));
     return comp_ptr;
 }
 
 template<typename C>
 void Core::remove_component(const Entity entity) {
     component_manager.remove_component_entity<C>(entity);
-    entity_manager.get_entity_bitset(entity)->set(component_manager.get_component_type<C>(), false);
+    entity_manager.get_entity_bitset(entity).set(component_manager.get_component_type<C>(), false);
 }
 
 template<typename C>
-std::shared_ptr<C> Core::get_component(const Entity entity) {
+C & Core::get_component(const Entity entity) {
     return component_manager.get_component<C>(entity);
 }
 
 template<typename C>
-ComponentType Core::get_component_type(Entity entity) {
-    return component_manager.get_component_type<C>(entity);
+ComponentType Core::get_component_type() {
+    return component_manager.get_component_type<C>();
+}
+
+template<typename C>
+C & Core::get_component_by_type(Entity entity, ComponentType component_type) {
+    return component_manager.get_component_bytype<C>(entity, component_type);
 }
 
 template<typename C>
 bool Core::has_component(Entity entity) {
     auto bitset = entity_manager.get_entity_bitset(entity);
     auto comp_type = component_manager.get_component_type<C>();
-    return bitset->test(comp_type);
+    return bitset.test(comp_type);
 }

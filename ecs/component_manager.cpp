@@ -8,14 +8,20 @@ ComponentManager::ComponentManager() {
     }
 }
 
+
 template<typename C>
 void ComponentManager::register_component() {
     const char *component_name = typeid(C).name();
     assert(!compname_to_array.contains(component_name));
-    compname_to_array.insert({component_name, std::make_shared<PackedArray<std::shared_ptr<C> > >()});
-    compname_to_comptype.insert({component_name, available_components.front()});
+    auto pack_arr = std::make_shared<PackedArray<C> >();
+    auto cmp_type = available_components.front();
+
+    compname_to_array.insert({component_name, pack_arr});
+    component_array.at(cmp_type) = pack_arr;
+    compname_to_comptype.insert({component_name, cmp_type});
     available_components.pop();
 }
+
 
 template<typename C>
 void ComponentManager::unregister_component() {
@@ -23,39 +29,53 @@ void ComponentManager::unregister_component() {
     assert(compname_to_array.contains(component_name));
     compname_to_array.erase(component_name);
     ComponentType comp_type = compname_to_comptype.at(component_name);
+    component_array.at(comp_type) = nullptr;
     compname_to_comptype.erase(component_name);
     available_components.push(comp_type);
 }
 
+
 template<typename C>
-std::shared_ptr<C> ComponentManager::add_component_entity(Entity entity) {
+C & ComponentManager::add_component_entity(Entity entity) {
     const char *component_name = typeid(C).name();
     assert(compname_to_array.contains(component_name));
-    auto comp_ptr =std::make_shared<C>();
-    auto packed_array = static_pointer_cast<PackedArray<std::shared_ptr<C>>>(compname_to_array.at(component_name));
-    packed_array->push(comp_ptr, entity);
-    return comp_ptr;
+    auto packed_array = static_pointer_cast<PackedArray<C> >(compname_to_array.at(component_name));
+    return packed_array->push(entity);;
 }
+
 
 template<typename C>
 void ComponentManager::remove_component_entity(Entity entity) {
     const char *component_name = typeid(C).name();
     assert(compname_to_array.contains(component_name));
-    auto packed_array = static_pointer_cast<PackedArray<std::shared_ptr<C>>>(compname_to_array.at(component_name));
+    auto packed_array = static_pointer_cast<PackedArray<std::shared_ptr<C> > >(compname_to_array.at(component_name));
     packed_array->remove(entity);
 }
 
+
 template<typename C>
-std::shared_ptr<C> ComponentManager::get_component(Entity entity) {
+C & ComponentManager::get_component(Entity entity) {
     const char *component_name = typeid(C).name();
-    assert(compname_to_array.contains(component_name));
-    auto pack_array = static_pointer_cast<PackedArray<std::shared_ptr<C>>>(compname_to_array.at(component_name));
-    return pack_array->get_entity(entity);
+    //assert(compname_to_array.contains(component_name));
+    return static_pointer_cast<PackedArray<C> >(compname_to_array.at(component_name))->
+            get_entity(entity);
 }
+
+
+template<typename C>
+C & ComponentManager::get_component_bytype(Entity entity, ComponentType component_type) {
+    return std::static_pointer_cast<PackedArray<C> >(component_array.at(component_type))->get_entity(entity);
+}
+
 
 template<typename C>
 ComponentType ComponentManager::get_component_type() {
     const char *component_name = typeid(C).name();
-    assert(compname_to_array.contains(component_name));
+    assert("Component is not registerer" && compname_to_comptype.contains(component_name));
     return compname_to_comptype.at(component_name);
+}
+
+template<typename C>
+bool ComponentManager::is_component_registered() {
+    return compname_to_comptype.contains(typeid(C).name());
 }

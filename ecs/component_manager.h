@@ -17,19 +17,26 @@ public:
     void unregister_component();
 
     template<typename C>
-    std::shared_ptr<C> add_component_entity(Entity entity);
+    C & add_component_entity(Entity entity);
 
     template<typename C>
     void remove_component_entity(Entity entity);
 
     template<typename C>
-    std::shared_ptr<C> get_component(Entity entity);
+    C & get_component(Entity entity);
+
+    template<typename C>
+    C & get_component_bytype(Entity entity, ComponentType component_type);
 
     template<typename C>
     ComponentType get_component_type();
 
+    template<typename C>
+    bool is_component_registered();
+
 private:
-    std::unordered_map<const char *, std::shared_ptr<IPackedArray>> compname_to_array;
+    std::array<std::shared_ptr<IPackedArray>, MAX_COMPONENTS> component_array;
+    std::unordered_map<const char *, std::shared_ptr<IPackedArray> > compname_to_array;
     std::unordered_map<const char *, ComponentType> compname_to_comptype;
     std::queue<ComponentType> available_components;
 };

@@ -6,25 +6,30 @@
 
 #include "entity.h"
 
+
 class IPackedArray {
-    public:
+public:
     virtual ~IPackedArray() = default;
+
     virtual void remove(Entity entity) = 0;
 };
 
 template<typename T>
 class PackedArray : public IPackedArray {
 public:
-    void push(T element, Entity entity);
+    T & push(Entity entity);
 
     void remove(Entity entity) override;
 
-    T get_entity(Entity entity);
+    T & get_entity(Entity entity);
 
     //void get_index(int index);
 
 private:
-    std::vector<T> vector;
+    int size = 0;
+    std::array<T, MAX_ENTITIES> array;
+    std::array<int, MAX_ENTITIES> entity_to_index_cache;
+    std::bitset<MAX_ENTITIES> dirty_bit;
     std::unordered_map<Entity, int> entity_to_index;
     std::unordered_map<int, Entity> index_to_entity;
 };

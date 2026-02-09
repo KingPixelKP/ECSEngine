@@ -12,12 +12,15 @@
 class PhysicsSystem : public System {
 public:
     void update(float delta) {
+        static auto t_type = core.get_component_type<Transform>();
+        static auto r_type = core.get_component_type<RigidBody>();
+
         for (Entity entity: entities) {
-            auto t = core.get_component<Transform>(entity);
-            auto r = core.get_component<RigidBody>(entity);
-            r->acceleration.y = -GRAVITY * delta;
-            r->velocity = Vector3Add(r->velocity, Vector3Scale(r->acceleration, delta));
-            t->translation = Vector3Add(t->translation, Vector3Scale(r->velocity, delta));
+            auto& t = core.get_component_by_type<Transform>(entity,t_type);
+            auto& r = core.get_component_by_type<RigidBody>(entity,r_type);
+            r.acceleration.y = -GRAVITY * delta;
+            r.velocity = Vector3Add(r.velocity, Vector3Scale(r.acceleration, delta));
+            t.translation = Vector3Add(t.translation, Vector3Scale(r.velocity, delta));
         }
     }
 

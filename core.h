@@ -36,14 +36,30 @@ public:
     void unregister_system();
 
     /**
-     * Given a component and a system it will register that component to the system
+     * Adds a component from a  system's desired
+     * @tparam S System to add component too
+     * @tparam C Componetn to be added
+     */
+    template<typename S, typename C>
+    void add_component();
+
+    /**
+     * Removes a component from a system's desired
+     * @tparam S System to remove component from
+     * @tparam C Component to be removed
+     */
+    template<typename S, typename C>
+    void remove_component();
+
+    /**
+     * Given a component it will register that component
      * @tparam C A Component
      */
     template<typename C>
     void register_component();
 
     /**
-     * Given a component and a system it will unregister that component from the system
+     * Given a component it will unregister that component
      * @tparam C A component
      */
     template<typename C>
@@ -55,7 +71,7 @@ public:
      * @param entity Entity to add component too
      */
     template<typename C>
-    std::expected<std::shared_ptr<C>, std::string> add_component(Entity entity);
+    C & add_component(Entity entity);
 
     /**
      * Removes a component from an entity
@@ -72,11 +88,15 @@ public:
      * @return The component from the desired entity
      */
     template<typename C>
-    std::shared_ptr<C> get_component(Entity entity);
-   //TODO Add some sort of way for core to check if the system retrieving the component has access to it
+    C & get_component(Entity entity);
+
+    //TODO Add some sort of way for core to check if the system retrieving the component has access to it
 
     template<typename C>
-    ComponentType get_component_type(Entity entity);
+    C & get_component_by_type(Entity entity, ComponentType component_type);
+
+    template<typename C>
+    ComponentType get_component_type();
 
     template<typename C>
     bool has_component(Entity entity);

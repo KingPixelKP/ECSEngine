@@ -6,18 +6,16 @@
 
 #include "entity.h"
 
-#define MAX_ENTITIES 2048
-
 class EntityManager {
     public:
     EntityManager();
     Entity create_entity();
     void destroy_entity(Entity entity);
-    std::shared_ptr<EntityBitset> get_entity_bitset(Entity entity);
+    EntityBitset get_entity_bitset(Entity entity);
     private:
     int alive_entity_count;
     std::queue<Entity> entity_queue;
-    std::unordered_map<Entity, std::shared_ptr<EntityBitset>> entity_bitset;
+    std::array<EntityBitset, MAX_ENTITIES> entity_bitset;
 };
 
 #include "entity_manager.cpp"
