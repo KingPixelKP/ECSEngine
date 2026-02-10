@@ -35,8 +35,8 @@ public:
     bool is_component_registered();
 
 private:
-    std::array<std::shared_ptr<IPackedArray>, MAX_COMPONENTS> component_array;
-    std::unordered_map<const char *, std::shared_ptr<IPackedArray> > compname_to_array;
+    std::array<IPackedArray*, MAX_COMPONENTS> component_array;
+    std::unordered_map<const char *, IPackedArray* > compname_to_array;
     std::unordered_map<const char *, ComponentType> compname_to_comptype;
     std::queue<ComponentType> available_components;
 };

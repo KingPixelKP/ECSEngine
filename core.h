@@ -2,7 +2,6 @@
 #define ECS_CORE_H
 
 #include <memory>
-#include <expected>
 
 #include "ecs/entity_manager.h"
 #include "ecs/component_manager.h"
@@ -107,8 +106,6 @@ private:
     EntityManager entity_manager;
     ComponentManager component_manager;
 };
-
-extern Core core;
 
 #include "ecs/core.cpp"
 

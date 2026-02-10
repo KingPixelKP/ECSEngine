@@ -1,7 +1,7 @@
 #include <random>
 #include <raylib.h>
 
-#include "system.h"
+#include "ecs/system.h"
 #include "core.h"
 #include "components/rigid_body.h"
 
@@ -15,22 +15,20 @@ int func(float x) {
 }
 
 void CubeSystem::update() {
-    static auto t_type = core.get_component_type<Transform>();
-    static auto r_type = core.get_component_type<RigidBody>();
     static std::random_device rd;
     static std::mt19937 gen(rd());
-    static std::uniform_real_distribution<float> disd(0.0f, 80.0f);
+    static std::uniform_real_distribution<float> disd(-80.0f, 80.0f);
 
     int i = entities.size();
 
     for (Entity e: entities) {
-        auto &t = core.get_component_by_type<Transform>(e, t_type);
-        if (t.translation.y <= -100) {
-            auto &r = core.get_component_by_type<RigidBody>(e,r_type);
+        auto &t = core->get_component<Transform>(e);
+        if (t.translation.z <= -100) {
+            auto &r = core->get_component<RigidBody>(e);
             t.translation = (Vector3){0.0f, 0.0f, 0.0f};
-            r.velocity.y = disd(gen);
-            r.velocity.x = disd(gen);
             r.velocity.z = disd(gen);
+            r.velocity.x = disd(gen);
+            r.velocity.y = 0.0f;
         }
     }
 }

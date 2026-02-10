@@ -24,6 +24,6 @@ void EntityManager::destroy_entity(Entity entity) {
     entity_bitset.at(entity).reset();
 }
 
-EntityBitset EntityManager::get_entity_bitset(Entity entity) {
+EntityBitset& EntityManager::get_entity_bitset(Entity entity) {
     return entity_bitset.at(entity);
 }

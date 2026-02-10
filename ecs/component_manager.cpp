@@ -12,8 +12,9 @@ ComponentManager::ComponentManager() {
 template<typename C>
 void ComponentManager::register_component() {
     const char *component_name = typeid(C).name();
+    //std::cout << component_name << std::endl;
     assert(!compname_to_array.contains(component_name));
-    auto pack_arr = std::make_shared<PackedArray<C> >();
+    auto pack_arr = new PackedArray<C>();
     auto cmp_type = available_components.front();
 
     compname_to_array.insert({component_name, pack_arr});
@@ -27,6 +28,7 @@ template<typename C>
 void ComponentManager::unregister_component() {
     const char *component_name = typeid(C).name();
     assert(compname_to_array.contains(component_name));
+    delete compname_to_array.at(component_name);
     compname_to_array.erase(component_name);
     ComponentType comp_type = compname_to_comptype.at(component_name);
     component_array.at(comp_type) = nullptr;
@@ -39,7 +41,7 @@ template<typename C>
 C & ComponentManager::add_component_entity(Entity entity) {
     const char *component_name = typeid(C).name();
     assert(compname_to_array.contains(component_name));
-    auto packed_array = static_pointer_cast<PackedArray<C> >(compname_to_array.at(component_name));
+    auto packed_array = static_cast<PackedArray<C>*>(compname_to_array.at(component_name));
     return packed_array->push(entity);;
 }
 
@@ -48,7 +50,7 @@ template<typename C>
 void ComponentManager::remove_component_entity(Entity entity) {
     const char *component_name = typeid(C).name();
     assert(compname_to_array.contains(component_name));
-    auto packed_array = static_pointer_cast<PackedArray<std::shared_ptr<C> > >(compname_to_array.at(component_name));
+    auto packed_array = (compname_to_array.at(component_name));
     packed_array->remove(entity);
 }
 
@@ -57,14 +59,14 @@ template<typename C>
 C & ComponentManager::get_component(Entity entity) {
     const char *component_name = typeid(C).name();
     //assert(compname_to_array.contains(component_name));
-    return static_pointer_cast<PackedArray<C> >(compname_to_array.at(component_name))->
+    return static_cast<PackedArray<C>* >(compname_to_array.at(component_name))->
             get_entity(entity);
 }
 
 
 template<typename C>
 C & ComponentManager::get_component_bytype(Entity entity, ComponentType component_type) {
-    return std::static_pointer_cast<PackedArray<C> >(component_array.at(component_type))->get_entity(entity);
+    return static_cast<PackedArray<C>*>(component_array.at(component_type))->get_entity(entity);
 }
 
 

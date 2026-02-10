@@ -2,7 +2,6 @@
 #define ECS_PACKED_ARRAY_H
 
 #include <unordered_map>
-#include <vector>
 
 #include "entity.h"
 
@@ -22,14 +21,10 @@ public:
     void remove(Entity entity) override;
 
     T & get_entity(Entity entity);
-
-    //void get_index(int index);
-
 private:
     int size = 0;
     std::array<T, MAX_ENTITIES> array;
-    std::array<int, MAX_ENTITIES> entity_to_index_cache;
-    std::bitset<MAX_ENTITIES> dirty_bit;
+    std::array<int, MAX_ENTITIES> entity_to_index_array = {0};
     std::unordered_map<Entity, int> entity_to_index;
     std::unordered_map<int, Entity> index_to_entity;
 };

@@ -10,7 +10,7 @@ void Core::destroy_entity(const Entity entity) {
 
 template<typename S>
 std::shared_ptr<S> Core::register_system() {
-    return system_manager.register_system<S>();
+    return system_manager.register_system<S>(this);
 }
 
 template<typename S>
@@ -56,7 +56,8 @@ void Core::remove_component(const Entity entity) {
 
 template<typename C>
 C & Core::get_component(const Entity entity) {
-    return component_manager.get_component<C>(entity);
+    static ComponentType component_type = component_type = component_manager.get_component_type<C>();
+    return component_manager.get_component_bytype<C>(entity, component_type);
 }
 
 template<typename C>

@@ -11,7 +11,7 @@ class EntityManager {
     EntityManager();
     Entity create_entity();
     void destroy_entity(Entity entity);
-    EntityBitset get_entity_bitset(Entity entity);
+    EntityBitset& get_entity_bitset(Entity entity);
     private:
     int alive_entity_count;
     std::queue<Entity> entity_queue;
