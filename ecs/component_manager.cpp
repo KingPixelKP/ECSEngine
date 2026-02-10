@@ -54,6 +54,11 @@ void ComponentManager::remove_component_entity(Entity entity) {
     packed_array->remove(entity);
 }
 
+void ComponentManager::remove_entity(Entity entity) {
+    for (auto packed_array : component_array) {
+        packed_array->remove(entity);
+    }
+}
 
 template<typename C>
 C & ComponentManager::get_component(Entity entity) {

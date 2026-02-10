@@ -49,6 +49,12 @@ public:
      */
     void entity_bitset_change(Entity entity, EntityBitset entity_bitset);
 
+    /**
+     * Removes an entity from all the managed systems
+     * @param entity Entity to be removed
+     */
+    void remove_entity(Entity entity);
+
 private:
     std::unordered_map<const char *, std::shared_ptr<System>> name_to_system;
     std::unordered_map<const char *, std::shared_ptr<SystemBitSet>> name_to_system_bitset;

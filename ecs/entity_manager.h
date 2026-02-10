@@ -9,8 +9,24 @@
 class EntityManager {
     public:
     EntityManager();
+
+    /**
+     * Creates a new entity
+     * @return An entity
+     */
     Entity create_entity();
+
+    /**
+     * Destroys an entity
+     * @param entity Entity to be destroyed
+     */
     void destroy_entity(Entity entity);
+
+    /**
+     *
+     * @param entity An entity
+     * @return The entity bitset attached to the entity
+     */
     EntityBitset& get_entity_bitset(Entity entity);
     private:
     int alive_entity_count;

@@ -22,6 +22,6 @@ void RenderSystem::render_all() {
         auto bbox = core->get_component<BoundingBox>(e);
 
         ma.maps[MATERIAL_MAP_ALBEDO].color = c;
-        DrawMesh(me, ma,  MatrixTranslate(t.translation.x, t.translation.y, t.translation.z));
+        //DrawMesh(me, ma,  MatrixTranslate(t.translation.x, t.translation.y, t.translation.z));
     }
 }

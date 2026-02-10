@@ -5,6 +5,8 @@
 
 #include "entity.h"
 
+#define NOTHING -1
+
 
 class IPackedArray {
 public:
@@ -16,6 +18,8 @@ public:
 template<typename T>
 class PackedArray : public IPackedArray {
 public:
+    PackedArray();
+
     T & push(Entity entity);
 
     void remove(Entity entity) override;
@@ -25,7 +29,6 @@ private:
     int size = 0;
     std::array<T, MAX_ENTITIES> array;
     std::array<int, MAX_ENTITIES> entity_to_index_array = {0};
-    std::unordered_map<Entity, int> entity_to_index;
     std::unordered_map<int, Entity> index_to_entity;
 };
 
