@@ -2,9 +2,9 @@
 #define ECS_RIGID_BODY_H
 #include "raylib.h"
 
-typedef struct RigidBody {
+typedef struct RigidBodyComponent {
     Vector3 velocity;
     Vector3 acceleration;
-}RigidBody;
+}RigidBodyComponent;
 
 #endif //ECS_RIGID_BODY_H
