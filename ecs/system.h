@@ -9,7 +9,9 @@ class Core;
 
 class System {
 public:
-    System(Core *_core) : core(_core) {};
+    //System();
+    explicit System(Core *_core) : core(_core) {};
+    virtual ~System()  = default;
     std::set<Entity> entities;
     Core *core;
 };

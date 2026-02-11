@@ -10,6 +10,6 @@ TransformComponent::TransformComponent() {
 }
 
 Matrix TransformComponent::get_matrix() {
-    return MatrixMultiply(MatrixTranslate(translate.x, translate.y, translate.z),
+    return MatrixMultiply(MatrixTranslate(translate.x,translate.y,translate.z),
                           MatrixMultiply(MatrixRotateXYZ(rotate), MatrixScale(scale.x, scale.y, scale.z)));
 }

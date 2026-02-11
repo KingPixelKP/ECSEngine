@@ -89,8 +89,6 @@ public:
     template<typename C>
     C & get_component(Entity entity);
 
-    //TODO Add some sort of way for core to check if the system retrieving the component has access to it
-
     template<typename C>
     C & get_component_by_type(Entity entity, ComponentType component_type);
 

@@ -34,6 +34,7 @@ void Core::remove_component() {
 
 template<typename C>
 void Core::register_component() {
+    if (component_manager.is_component_registered<C>()) return;
     component_manager.register_component<C>();
 }
 
@@ -74,7 +75,7 @@ C & Core::get_component_by_type(Entity entity, ComponentType component_type) {
 
 template<typename C>
 bool Core::has_component(Entity entity) {
+    static ComponentType component_type = component_type = component_manager.get_component_type<C>();
     auto bitset = entity_manager.get_entity_bitset(entity);
-    auto comp_type = component_manager.get_component_type<C>();
-    return bitset.test(comp_type);
+    return bitset.test(component_type);
 }
