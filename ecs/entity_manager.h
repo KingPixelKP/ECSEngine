@@ -2,6 +2,7 @@
 #define ECS_ENTITY_MANAGER_H
 #include <memory>
 #include <queue>
+#include <array>
 #include <unordered_map>
 
 #include "entity.h"
