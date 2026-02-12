@@ -1,19 +1,12 @@
 #include <raylib.h>
 
+#include "sprite_render_system.h"
+
 #include "../core.h"
 #include "../default_components/sprite_component.h"
 #include "../default_components/transform_component.h"
 #include "../ecs/system.h"
 
-class SpriteRenderSystem : public System {
-public:
-    using System::System;
-    ~SpriteRenderSystem() override = default;
-
-    void init();
-
-    void render_all();
-};
 
 void SpriteRenderSystem::init() {
     core->register_component<TransformComponent>();

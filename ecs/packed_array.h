@@ -1,6 +1,8 @@
+#pragma once
 #ifndef ECS_PACKED_ARRAY_H
 #define ECS_PACKED_ARRAY_H
 
+#include <array>
 #include <unordered_map>
 
 #include "entity.h"
@@ -32,6 +34,7 @@ private:
     std::unordered_map<int, Entity> index_to_entity;
 };
 
-#include "packed_array.cpp"
+//#include "packed_array.cpp"
+#include "packed_array.tpp"
 
 #endif //ECS_PACKED_ARRAY_H

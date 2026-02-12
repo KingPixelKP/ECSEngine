@@ -6,9 +6,15 @@ typedef struct CubeComponent {
 } CubeComponent;
 
 #include "core.h"
-#include "default_systems/physics_system.cpp"
-#include "default_systems/mesh_render_system.cpp"
-#include "default_systems/sprite_render_system.cpp"
+#include "default_systems/physics_system.h"
+#include "default_systems/mesh_render_system.h"
+#include "default_systems/sprite_render_system.h"
+
+//#include "default_components/sprite_component.h"
+//#include "default_components/collision_box_component.h"
+#include "default_components/mesh_component.h"
+#include "default_components/rigid_body_component.h"
+#include "default_components/transform_component.h"
 
 
 Core core;
@@ -39,17 +45,6 @@ int main() {
     physics_system->init();
     auto mesh_system = core.register_system<MeshRenderSystem>();
     mesh_system->init();
-
-    //for (int i = 0; i < 10000; i++) {
-    //    auto e = core.create_entity();
-    //    auto &sc = core.add_component<SpriteComponent>(e);
-    //    sc.texture = &tex;
-    //    sc.set_source(6, 1, 0, 0);
-    //    sc.center();
-    //    auto &tc = core.add_component<TransformComponent>(e);
-    //    tc.translate = {400.0f, 400.0f, 0.0f};
-    //    core.add_component<RigidBodyComponent>(e);
-    //}
 
     Mesh mesh = GenMeshCube(1.0f, 1.0f, 1.0f);
 

@@ -1,22 +1,12 @@
-#include <iostream>
 #include <raylib.h>
 #include <raymath.h>
+
+#include "physics_system.h"
 
 #include "../ecs/system.h"
 #include "../core.h"
 #include "../default_components/rigid_body_component.h"
 #include "../default_components/transform_component.h"
-
-class PhysicsSystem : public System {
-public:
-    using System::System;
-
-    ~PhysicsSystem() override = default;
-
-    void init();
-
-    void update(float delta);
-};
 
 void PhysicsSystem::init() {
     core->register_component<TransformComponent>();
@@ -40,9 +30,5 @@ void PhysicsSystem::update(const float delta) {
             t.translate.x + r.velocity.x * delta, t.translate.y + r.velocity.y * delta,
             t.translate.z + r.velocity.z * delta
         };
-
-        //For some reason raylib's defaults are very slow
-        //r.velocity = Vector3Add(r.velocity, Vector3Scale(r.acceleration, delta));
-        //t.translate = Vector3Add(t.translate, Vector3Scale(r.velocity, delta));
     }
 }

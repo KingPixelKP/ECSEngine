@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ECS_SYSTEM_MANAGER_H
 #define ECS_SYSTEM_MANAGER_H
 
@@ -60,6 +61,7 @@ private:
     std::unordered_map<const char *, std::shared_ptr<SystemBitSet>> name_to_system_bitset;
 };
 
-#include "system_manager.cpp"
+//#include "system_manager.cpp"
+#include "system_manager.tpp"
 
 #endif // ECS_SYSTEM_MANAGER_H

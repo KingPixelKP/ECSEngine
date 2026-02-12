@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ECS_ENTITY_H
 #define ECS_ENTITY_H
 #include <bitset>

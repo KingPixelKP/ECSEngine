@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ECSDODLEARNING_TRANSFORM_COMPONENT_H
 #define ECSDODLEARNING_TRANSFORM_COMPONENT_H
 #include <raylib.h>
@@ -13,6 +14,6 @@ public:
     Matrix get_matrix();
 };
 
-#include "transform_component.cpp"
+//#include "transform_component.cpp"
 
 #endif //ECSDODLEARNING_TRANSFORM_COMPONENT_H

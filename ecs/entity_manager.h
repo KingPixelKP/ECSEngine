@@ -1,9 +1,8 @@
+#pragma once
 #ifndef ECS_ENTITY_MANAGER_H
 #define ECS_ENTITY_MANAGER_H
-#include <memory>
 #include <queue>
 #include <array>
-#include <unordered_map>
 
 #include "entity.h"
 
@@ -35,6 +34,6 @@ class EntityManager {
     std::array<EntityBitset, MAX_ENTITIES> entity_bitset;
 };
 
-#include "entity_manager.cpp"
+//#include "entity_manager.cpp"
 
 #endif //ECS_ENTITY_MANAGER_H

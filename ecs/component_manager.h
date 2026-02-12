@@ -1,7 +1,8 @@
+#pragma once
 #ifndef ECS_COMPONENT_MANAGER_H
 #define ECS_COMPONENT_MANAGER_H
-#include <memory>
 #include <queue>
+#include <array>
 #include <unordered_map>
 
 #include "packed_array.h"
@@ -89,6 +90,6 @@ private:
     std::queue<ComponentType> available_components;
 };
 
-#include "component_manager.cpp"
+#include "component_manager.tpp"
 
 #endif //ECS_COMPONENT_MANAGER_H

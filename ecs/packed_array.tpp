@@ -1,6 +1,5 @@
+#pragma once
 #include "packed_array.h"
-#include <iostream>
-#include <cassert>
 
 template<typename T>
 PackedArray<T>::PackedArray() {

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ECS_CORE_H
 #define ECS_CORE_H
 
@@ -105,6 +106,6 @@ private:
     ComponentManager component_manager;
 };
 
-#include "ecs/core.cpp"
+#include "ecs/core.tpp"
 
 #endif //ECS_CORE_H

@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ECSDODLEARNING_SPRITE_COMPONENT_H
 #define ECSDODLEARNING_SPRITE_COMPONENT_H
 
@@ -52,6 +53,6 @@ private:
     bool is_source_defined();
 };
 
-#include "sprite_component.cpp"
+//#include "sprite_component.cpp"
 
 #endif //ECSDODLEARNING_SPRITE_COMPONENT_H

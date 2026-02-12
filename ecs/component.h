@@ -1,3 +1,4 @@
+#pragma once
 #ifndef ECS_COMPONENT_H
 #define ECS_COMPONENT_H
 

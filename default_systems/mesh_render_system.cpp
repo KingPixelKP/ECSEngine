@@ -1,21 +1,12 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include "mesh_render_system.h"
+
 #include "../ecs/system.h"
 #include "../core.h"
 #include "../default_components/mesh_component.h"
 #include "../default_components/transform_component.h"
-
-class MeshRenderSystem : public System {
-public:
-    using System::System;
-    ~MeshRenderSystem() override = default;
-
-    void init();
-
-    void render_all();
-};
-
 
 void MeshRenderSystem::init() {
     core->register_component<TransformComponent>();
