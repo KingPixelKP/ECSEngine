@@ -27,6 +27,8 @@ public:
     void remove(Entity entity) override;
 
     T & get_entity(Entity entity);
+
+    void map(T (*func)(T val));
 private:
     int size = 0;
     std::array<T, MAX_ENTITIES> array;

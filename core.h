@@ -93,6 +93,9 @@ public:
     template<typename C>
     C & get_component_by_type(Entity entity, ComponentType component_type);
 
+    template<typename  C>
+    void map_component(C (*func)(C val));
+
     template<typename C>
     ComponentType get_component_type();
 

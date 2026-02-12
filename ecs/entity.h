@@ -6,7 +6,9 @@
 
 #include "component.h"
 
+#ifndef MAX_ENTITIES
 #define MAX_ENTITIES 8192 * 2
+#endif
 
 typedef uint16_t Entity;
 typedef std::bitset<MAX_COMPONENTS> EntityBitset; //Used to show which components an entity has

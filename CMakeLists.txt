@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 4.1.2)
 
+add_compile_definitions(DEBUG_VELOCITY true)
+add_compile_definitions(DEBUG_ACCELERATION true)
+add_compile_definitions(MAX_ENTITIES=20000)
+
 #set(CMAKE_BUILD_TYPE Debug)
 #set(CMAKE_CONFIGURATION_TYPES Debug)
 
@@ -11,7 +15,6 @@ project(ecs)
 
 include(FetchContent)
 set(FETCHCONTENT_QUIET OFF)
-
 
 FetchContent_Declare(
     raylib

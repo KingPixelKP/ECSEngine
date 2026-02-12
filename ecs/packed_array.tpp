@@ -31,7 +31,12 @@ void PackedArray<T>::remove(Entity entity) {
 
 template<typename T>
 T & PackedArray<T>::get_entity(Entity entity) {
-    //int entity_index = entity_to_index.at(entity);
-
     return array.at(entity_to_index_array[entity]);
+}
+
+template <typename T>
+void PackedArray<T>::map(T (*func)(T val)) {
+    for(int i = 0; i < size; i++) {
+        array.at(i) = func(array.at(i));
+    }
 }
