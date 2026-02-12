@@ -1,8 +1,7 @@
 user
 todo.md
 cmake-build-debug
-.vscode
+.cache
 build
-.*
 *perf*
 Tiny*
